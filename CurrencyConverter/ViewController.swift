@@ -36,9 +36,24 @@ class ViewController: UIViewController {
                 if data != nil {
                     do {
                     let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        as! Dictionary<String,Any>
+                        
                         // Async
                         DispatchQueue.main.async {
-                            print(jsonResponse)
+                            if let rates = jsonResponse["rates"] as? [String:Any] {
+                                if let phpValue = rates["PHP"] as? Double {
+                                    self.phpLabel.text = "PHP : \(String(phpValue))"
+                                }
+                                if let madValue = rates["MAD"] as? Double {
+                                    self.madLabel.text = "MAD : \(String(madValue))"
+                                }
+                                if let etbValue = rates["ETB"] as? Double {
+                                    self.etbLabel.text = "ETB : \(String(etbValue))"
+                                }
+                                if let chfValue = rates["CHF"] as? Double {
+                                    self.chfLabel.text = "CHF : \(String(chfValue))"
+                                }
+                            }
                         }
                     } catch {
                         print("Error in response")
