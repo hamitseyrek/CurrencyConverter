@@ -34,7 +34,15 @@ class ViewController: UIViewController {
             } else {
                 // Response  & Data
                 if data != nil {
-                    
+                    do {
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        // Async
+                        DispatchQueue.main.async {
+                            print(jsonResponse)
+                        }
+                    } catch {
+                        print("Error in response")
+                    }
                 }
             }
         }
